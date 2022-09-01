@@ -1,0 +1,6 @@
+:root {
+  --slidev-code-line-height: 16px !important;
+}
+pre code {
+  font-size: 10px;
+}
