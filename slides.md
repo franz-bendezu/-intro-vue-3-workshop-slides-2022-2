@@ -247,13 +247,15 @@ Los objetos reactivos se inicializan
 Preguntar que es la reactividad.
 Módulo de reactividad. Esto permite crear objetos reactivos de JavaScript que pueden observarse en busca de cambios. Cuando se ejecuta el código que utiliza estos objetos, se realiza un seguimiento para ejecutarlo más tarde si cambia el objeto reactivo. 
 Módulo compilador. Esto sabe cómo tomar plantillas HTML y compilarlas en funciones de renderizado. Esto puede suceder en el navegador en tiempo de ejecución, pero ocurre más a menudo cuando se crea un proyecto de Vue, por lo que un navegador solo recibe funciones de renderizado. 
+
 Módulo Renderer. El renderizador contiene el código para 3 fases diferentes de renderizado de un componente en una página web. 
+
 Fase de renderizado. Cuando se llama a la función de renderización y devuelve una representación del DOM real llamado DOM virtual. El DOM virtual es una representación de objeto JavaScript de lo que se procesará en el navegador. 
+
 Fase de montaje (o creación): el renderizador toma el objeto DOM virtual y realiza llamadas JavaScript DOM reales para crear una página web. 
+
 Fase de parche (o actualización): el renderizador toma los dos objetos DOM virtual, uno antiguo y uno nuevo, y actualiza solo las partes de la página web que han cambiado usando llamadas DOM JavaScript.
 -->
-
-
 
 ---
 layout: section
@@ -267,16 +269,19 @@ layout: section
 # Herramientas
 
 IDE:    
-- Visual Code
-	
-    Descarga: https://code.visualstudio.com/download 
+- Visual Code: https://code.visualstudio.com/download 
 
 
-Complementos
+Complementos para Vue con CDN + Javascript
 - Vetur
 - Es6-string-html
 - Live Server
 - Prettier - Code formatter
+
+Complementos para Vue con Node + Javascript o Typescript
+- Node + npm : https://nodejs.org/es/download/
+- Volar extension : https://marketplace.visualstudio.com/items?itemName=Vue.volar
+- Vite: https://vitejs.dev/
 
 
 ---
@@ -343,8 +348,6 @@ layout: section
 
 ---
 
-
-
 # Creando la aplicación Vue
 
 Para mostrar nuestros datos dentro de nuestro HTML, primero tendremos que crear una aplicación Vue. En nuestro archivo main.js , crearemos nuestra aplicación con:
@@ -352,21 +355,29 @@ Para mostrar nuestros datos dentro de nuestro HTML, primero tendremos que crear 
 
 📄 main.js
 ```js
-  const app = Vue.createApp({})
+import { createApp } from "vue";
+import App from "./App.vue";
+
+createApp(App)
+
 ```
 
 Como argumento, vamos a pasar un objeto y agregar una propiedad de **data**. Esta será una función que devuelve otro objeto, donde almacenaremos nuestros datos. Aquí, lo agregaremos product como un elemento de **data**.
 
 
-📄 main.js
-```js
-const options = {
-	data: () =>({
-      title: 'Todo List'
-    })
-}
-const app = Vue.createApp(options)
+📄 App.vue
+```vue
+<script>
+export default {
+  data() {
+    "Todo List";
+  },
+};
+</script>
+
 ```
+
+
 ---
 
 # Creando la aplicación Vue
@@ -375,8 +386,20 @@ Ahora solo debemos asegurarnos de que estamos importando nuestra aplicación Vue
 
 📄 index.html
 ```html
-<!-- Import App -->
-<script src="./main.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
+
 ```
 
 
@@ -386,12 +409,17 @@ Ahora solo debemos asegurarnos de que estamos importando nuestra aplicación Vue
 
 Ahora que hemos creado nuestra aplicación, necesitamos montar la aplicación que acabamos de crear en nuestro DOM. Lo haremos dentro de una etiqueta de script, en nuestro archivo index.html .
 
-📄 index.html
+📄 main.js
 ```html
 <script>
-  const appMount = app.mount('#app')
-</script>
+import { createApp } from "vue";
+import App from "./App.vue";
+
+createApp(App).mount("#app");
+
 ```
+
+
 ---
 
 # Visualización de los datos
@@ -414,16 +442,41 @@ Ahora, si revisamos el navegador, veremos que se muestra "Todo List". ¡Excelent
 ---
 
 # La instancia de Vue
+📄 App.vue
+```js
+<script>
+export default {
+  data() {
+    return {
+      title: "Todo List",
+    };
+  },
+};
+</script>
+
+<template>
+  <header>
+    <img
+      alt="Vue logo"
+      class="logo"
+      src="./assets/logo.svg"
+      width="125"
+      height="125"
+    />
+  </header>
+  <main>{{ title }}</main>
+</template>
+```
+
+
+---
+
 Cuando creamos nuestra aplicación Vue, pasamos el objeto de opciones, lo que nos permitió agregar algunas propiedades opcionales para configurar la aplicación. Al hacer esto, se crea nuestra instancia de Vue, el corazón de nuestra aplicación Vue, que impulsa todo.
 
-📄 main.js
-
-```js
-const app = Vue.createApp({Options Object})
-```
 Al importar esta aplicación y montarla en el DOM, básicamente hemos conectado la aplicación a nuestro DOM, lo que le da a nuestro HTML una línea directa en la aplicación. De esta manera, nuestro código de plantilla puede acceder a opciones de la aplicación, como sus datos.
 
-Si esta sintaxis de doble llave, o sintaxis de bigote, es nueva para usted, nos permite escribir expresiones JavaScript. En otras palabras, nos permite ejecutar JavaScript válido dentro de nuestro HTML.
+Si esta sintaxis de doble llave, o sintaxis de bigote, es nueva para usted, nos permite escribir "expresiones JavaScript". En otras palabras, nos permite ejecutar JavaScript válido dentro de nuestro HTML.
+
 
 ---
 
@@ -446,14 +499,40 @@ const app = Vue.createApp(options)
 ---
 
 # Reactividad de Vue
+📄 App.vue
+```html
+<script>
+export default {
+  data() {
+    return {
+      title: "Mis Actividades",
+    };
+  },
+};
+</script>
+
+<template>
+  <header>
+    <img
+      alt="Vue logo"
+      class="logo"
+      src="./assets/logo.svg"
+      width="125"
+      height="125"
+    />
+  </header>
+  <main>{{ title }}</main>
+</template>
+
+```
+
+
+---
+
+# Reactividad de Vue
+
 Debido a cómo funciona Vue, la h1 expresión 'en la que se basa title recibiría automáticamente ese nuevo valor, y nuestro DOM se actualizaría para mostrar "Mis actividades".
 
-📄 index.html
-```html
-<div id="app">
-  <h1>{{ title }}</h1> <! -- will reactively receive any updates to title -->
-</div>
-```
 
 Esto se debe a que Vue es reactivo . Debajo del capó, Vue tiene un sistema de reactividad completo que maneja las actualizaciones. Cuando un valor de datos cambia, cualquier lugar que dependa de esos datos se actualizará automáticamente para nosotros. No tenemos que hacer nada para que eso suceda.
 
@@ -465,40 +544,93 @@ Esto se debe a que Vue es reactivo . Debajo del capó, Vue tiene un sistema de r
 📄 index.html
 ```html
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Taller de Vue 3</title>
-    <!-- Import Styles -->
-    <link rel="stylesheet" href="./assets/styles.css" />
-    <!-- Import Vue.js -->
-    <script src="https://unpkg.com/vue@3.0.0/dist/vue.global.js"></script>
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
   </head>
   <body>
-    <div id="app">
-        <h1>{{ title }}</h1> 
-    </div>
-
-    <!-- Import Js -->
-    <script src="./main.js"></script>
-    <script>
-        const appMount = app.mount('#app')
-      </script>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
   </body>
 </html>
+
+```
+
+
+---
+
+# Código de Salida
+
+📄 App.vue
+```js
+<script>
+export default {
+  data() {
+    return {
+      title: "Mis Actividades",
+    };
+  },
+};
+</script>
+
+<template>
+  <header>
+    <img
+      alt="Vue logo"
+      class="logo"
+      src="./assets/logo.svg"
+      width="125"
+      height="125"
+    />
+  </header>
+  <main>{{ title }}</main>
+</template>
+
+<style scoped>
+header {
+  line-height: 1.5;
+}
+
+.logo {
+  display: block;
+  margin: 0 auto 2rem;
+}
+
+@media (min-width: 1024px) {
+  header {
+    display: flex;
+    place-items: center;
+    padding-right: calc(var(--section-gap) / 2);
+  }
+
+  .logo {
+    margin: 0 2rem 0 0;
+  }
+
+  header .wrapper {
+    display: flex;
+    place-items: flex-start;
+    flex-wrap: wrap;
+  }
+}
+</style>
+
 ```
 ---
 
 # Código de Salida
+
 📄 main.js
 ```js
-const options = {
-	data: () =>({
-      title: 'Mis Actividades' // updated data value //
-    })
-}
-const app = Vue.createApp(options)
+import { createApp } from "vue";
+import App from "./App.vue";
+
+export const app = createApp(App).mount("#app");
 ```
+
 
 ---
 layout: section
@@ -611,7 +743,7 @@ layout: section
 # Manejo de Eventos
 Podemos usar la directiva v-on, que normalmente acortamos al símbolo @, para escuchar eventos DOM y ejecutar algo de JavaScript cuando se activan.
 ```html
-<div v-on:click="count=count+1">Increase</div> 
+<button v-on:click="count=count+1">Increase</button> 
 ```
 Sin embargo, la lógica para muchos controladores de eventos será más compleja, por lo que mantener su JavaScript en el valor del atributo v-on no es factible. Es por eso que v-on también puede aceptar el nombre de un método al que le gustaría llamar.
 
