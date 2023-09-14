@@ -3460,17 +3460,17 @@ plantuml-encoder@^1.4.0:
   resolved "https://registry.yarnpkg.com/plantuml-encoder/-/plantuml-encoder-1.4.0.tgz#7899302cf785de956bf1a167e15420feee5975f7"
   integrity sha512-sxMwpDw/ySY1WB2CE3+IdMuEcWibJ72DDOsXLkSmEaSzwEUaYBT6DWgOfBiHGCux4q433X6+OEFWjlVqp7gL6g==
 
-playwright-chromium@^1.36.2:
-  version "1.36.2"
-  resolved "https://registry.yarnpkg.com/playwright-chromium/-/playwright-chromium-1.36.2.tgz#c11bd46895eba0a96648056095e9d06dbe51f822"
-  integrity sha512-ONY6+ON1A+qYUBiymWn3MHnBjdPO6lYIi2SiQbUo1OA0cSZaxx9vM2mRYY3p7JLC6AhAbPEimZdXetQx48AHkA==
+playwright-chromium@^1.38.0:
+  version "1.38.0"
+  resolved "https://registry.yarnpkg.com/playwright-chromium/-/playwright-chromium-1.38.0.tgz#a84525e902969d5f6bf182dfb1ef24047c83b067"
+  integrity sha512-RoqqEMsBwOh7yfnb8hL/QEjd7O767GTqDLL6ZOg8tJtMoHc/66GS6Dl3ODWhLxrkAk6gVkprB0H1RYHnT9F7dg==
   dependencies:
-    playwright-core "1.36.2"
+    playwright-core "1.38.0"
 
-playwright-core@1.36.2:
-  version "1.36.2"
-  resolved "https://registry.yarnpkg.com/playwright-core/-/playwright-core-1.36.2.tgz#32382f2d96764c24c65a86ea336cf79721c2e50e"
-  integrity sha512-sQYZt31dwkqxOrP7xy2ggDfEzUxM1lodjhsQ3NMMv5uGTRDsLxU0e4xf4wwMkF2gplIxf17QMBCodSFgm6bFVQ==
+playwright-core@1.38.0:
+  version "1.38.0"
+  resolved "https://registry.yarnpkg.com/playwright-core/-/playwright-core-1.38.0.tgz#cb8e135da1c0b1918b070642372040ed9aa7009a"
+  integrity sha512-f8z1y8J9zvmHoEhKgspmCvOExF2XdcxMW8jNRuX4vkQFrzV4MlZ55iwb5QeyiFQgOFCUolXiRHgpjSEnqvO48g==
 
 popmotion@^11.0.5:
   version "11.0.5"
